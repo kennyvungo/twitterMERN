@@ -3,7 +3,9 @@ const router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a adaadasadsadurce');
+  res.json({
+    message: "GET /api/users"
+  });
 });
 
 module.exports = router;
