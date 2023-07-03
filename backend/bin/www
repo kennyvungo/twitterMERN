@@ -8,9 +8,9 @@ var app = require('../app');
 
 const debug = require('debug');
 const serverLogger = debug('backend:server');
-// const dbLogger = debug('backend:mongodb');
-
-
+const dbLogger = debug('backend:mongodb');
+const mongoose = require('mongoose');
+const { mongoURI: db } = require('../config/keys.js');
 
 var http = require('http');
 
@@ -30,14 +30,19 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
+mongoose
+  .connect(db, { useNewUrlParser: true })
+  .then(() => {
+    dbLogger("Connected to MongoDB successfully");
+    server.listen(port);
+  })
+  .catch(err => serverLogger(err));
 
-server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
+  /**
+   * Normalize a port into a number, string, or false.
+  */
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
