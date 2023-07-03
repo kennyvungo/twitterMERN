@@ -4,15 +4,16 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+const app = require('../app');
 
 const debug = require('debug');
-const serverLogger = debug('backend:server');
-const dbLogger = debug('backend:mongodb');
+const http = require('http'); 
 const mongoose = require('mongoose');
 const { mongoURI: db } = require('../config/keys.js');
 
-var http = require('http'); 
+const serverLogger = debug('backend:server');
+const dbLogger = debug('backend:mongodb');
+
 
 // slay
 
@@ -20,14 +21,14 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '5050');
+const port = normalizePort(process.env.PORT || '5050');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -47,7 +48,7 @@ server.on('listening', onListening);
   */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  const port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
