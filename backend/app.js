@@ -6,6 +6,7 @@ const cors = require('cors');
 const csurf = require('csurf');
 const { isProduction } = require('./config/keys');
 
+require('./models/User');
 
 
 const app = express();
